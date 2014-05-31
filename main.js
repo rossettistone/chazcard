@@ -32,23 +32,19 @@ angular.module('ChazCard', [])
     {
       name: 'C#5',
       hz: 554.37
+    },
+    {
+      name: 'D5',
+      hz: 587.33
     }
   ];
 
+  $scope.playNote = function (pitch) {
+    var n = new Pluck(parseFloat(pitch));
+    n.play();
+  };
+
 }]);
-
-
-/**
- *
- accel events and touch mapped to Synth and Graphic
- Synth plays notes
- Graphic does visuals
-
-accel
-map_range(accelVal, 0, 15, 100,1500);
-
- *
- */
 
 $(document).ready(function(){
     setup();
@@ -83,20 +79,6 @@ var setup = function(){
 
   emitter = new SampleBatchEmitter();
 
-  $fun = $("#fun");
-
-  //add events
-  $fun.bind("mousedown", touchActivate);
-  $fun.bind("mouseup", touchDeactivate);
-  $fun.bind("touchstart", touchActivate);
-  $fun.bind("touchend", touchDeactivate);
-
-  $('.noteButton').click(function (e) {
-    var pitch = $(e.target).data('hz');
-    var n = new Pluck(pitch);
-    n.play();
-  })
-
 }
 
 
@@ -106,10 +88,10 @@ var touchActivate = function(e){
   e.preventDefault();
 
   if(webAudioExists){
-    synth.touchActivate(e);
+    var pitch = $(e.target).data('hz');
+    var n = new Pluck(pitch);
+    n.play();
   }
-
-  graphic.touchActivate(e);
 }
 
 var touchDeactivate = function(e){
@@ -118,7 +100,6 @@ var touchDeactivate = function(e){
   if(webAudioExists){
     synth.touchDeactivate(e);
   }
-  graphic.touchDeactivate(e);
 }
 
 
@@ -308,22 +289,3 @@ var quantize = function(f, notes){
   });
   return qnote;
 }
-
-
-var s = function( sketch ) {
-  var gray = 0;
-  sketch.setup = function() {
-    sketch.createCanvas(500, 200);
-    sketch.colorMode("hsb");
-    sketch.background(base_color,1,1);
-  };
-  sketch.draw = function() {
-    sketch.background(base_color,0,1);
-    if(typeof(orientEvent)!== "undefined" && orientEvent.gamma !== null){
-      var w = sketch.map(orientEvent.gamma, -90, 90, 0, 500);
-      sketch.rect(w-20, 0, 40, 200);
-      sketch.noStroke();
-      sketch.fill(base_color,1,1);
-    }
-  }
-};

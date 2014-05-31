@@ -5,10 +5,9 @@
     <link rel="stylesheet" media="screen" type="text/css" href="style.css">
   </head>
   <body ng-app="ChazCard">
-    <div id="fun" ng-controller="MainCtrl">
-      <div id="canvas" width="300" height="100"></div>
+    <div ng-controller="MainCtrl">
       <div ng-repeat="note in notes">
-        <input type="button" class="noteButton" value="{{note.name}}" data-hz="{{note.hz}}"></input>
+        <input type="button" class="noteButton" value="{{note.name}}" ng-click="playNote(note.hz)"></input>
       </div>
     </div>
     <script src="jquery-2.1.1.min.js"></script>
