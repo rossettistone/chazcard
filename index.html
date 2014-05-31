@@ -1,0 +1,18 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+  <head>
+    <link rel="stylesheet" media="screen" type="text/css" href="style.css">
+  </head>
+  <body ng-app="ChazCard">
+    <div id="fun" ng-controller="MainCtrl">
+      <div id="canvas" width="300" height="100"></div>
+      <div ng-repeat="note in notes">
+        <input type="button" class="noteButton" value="{{note.name}}" data-hz="{{note.hz}}"></input>
+      </div>
+    </div>
+    <script src="jquery-2.1.1.min.js"></script>
+    <script src="angular-1.2.16.min.js" type="text/javascript"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
