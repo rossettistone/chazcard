@@ -1,10 +1,9 @@
+'use strict';
+
 var context;
-var synth= {};
+var synth = {};
 var graphic;
 var emitter;
-var noteVal = 400;
-var t = new Date();
-var isDesktop = false;
 var webAudioExists = false;
 
 
@@ -63,7 +62,7 @@ angular.module('ChazCard', [])
 }]);
 
 $(document).ready(function(){
-    setup();
+  setup();
 });
 
 var checkFeatureSupport = function(){
@@ -74,87 +73,26 @@ var checkFeatureSupport = function(){
   catch (err){
     alert('web audio not supported');
   }
-
-  if (! (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ) {
-    // some code..
-    isDesktop = true;
-  }
-}
+};
 
 
 var setup = function(){
   checkFeatureSupport();
 
-  if(typeof(context)!=="undefined"){
+  if(typeof(context) !== 'undefined'){
     webAudioExists = true;
   }
 
   if(webAudioExists){
     synth = new Synth();
   }
+};
 
-  emitter = new SampleBatchEmitter();
-
-}
-
-
-//touch and gesture mappings to synth and graphic
-//
-var touchActivate = function(e){
-  e.preventDefault();
-
-  if(webAudioExists){
-    var pitch = $(e.target).data('hz');
-    var n = new Pluck(pitch);
-    n.play();
-  }
-}
-
-var touchDeactivate = function(e){
-  e.preventDefault();
-
-  if(webAudioExists){
-    synth.touchDeactivate(e);
-  }
-}
-
-
-//sample + batch acceleration values. only submit if nonzero
-function SampleBatchEmitter(){
-  this.sample_rate= 30;
-  this.emit_rate = 200;
-  this.data = [];
-  this.read = true;
-  this.emitd();
-  this.startTime;
-}
-
-SampleBatchEmitter.prototype.pushd = function(d){
-  if(this.read===true  && graphic.activated){
-    d.deltaTime = (new Date().getTime() - this.startTime);
-    this.data.push(d);
-    this.read = false;
-    var that = this;
-    setTimeout(function(){that.read = true;}, that.sample_rate);
-  };
-}
-
-SampleBatchEmitter.prototype.emitd = function(){
-  var that = this;
-  setInterval(function(){
-    that.startTime = new Date().getTime();
-    if(that.data.length>0){
-      that.data = [];
-    }
-  },that.emit_rate);
-}
-
-
-function map_range(value, low1, high1, low2, high2) {
+function map_range (value, low1, high1, low2, high2) {
     return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
 }
 
-function Pluck(f){
+function Pluck (f) {
   this.filter;
   this.gain;
   this.osc;
@@ -180,20 +118,20 @@ Pluck.prototype.buildSynth = function(){
   this.osc.connect(this.filter); // Connect sound to output
   this.filter.connect(this.gain);
   this.gain.connect(context.destination);
-}
+};
 
 Pluck.prototype.setPitch = function(p){
   this.osc.frequency.value = p;
-}
+};
 
 Pluck.prototype.setFilter = function(f){
   this.filter.frequency.value = f;
-}
+};
 
 Pluck.prototype.setVolume= function(v){
   this.gain.gain.value = v;
   this.volume = v;
-}
+};
 
 Pluck.prototype.play = function(dur){
   var dur = this.duration || dur;
@@ -206,13 +144,11 @@ Pluck.prototype.play = function(dur){
     that.setVolume(0);
     that.osc.disconnect();
   },dur*1000);
-}
+};
 
 Pluck.prototype.stop = function(){
   return false;
-}
-
-
+};
 
 function Drone(f){
   this.filter;
@@ -240,31 +176,30 @@ Drone.prototype.buildSynth = function(){
   this.osc.connect(this.filter); // Connect sound to output
   this.filter.connect(this.gain);
   this.gain.connect(context.destination);
-}
+};
 
 Drone.prototype.setPitch = function(p){
   this.osc.frequency.value = p;
-}
+};
 
 Drone.prototype.setFilter = function(f){
   this.filter.frequency.value = f;
-}
+};
 
 Drone.prototype.setVolume= function(v){
   this.gain.gain.value = v;
   this.volume = v;
-}
+};
 
 Drone.prototype.play = function(){
   this.osc.noteOn(0); // Play instantly
-}
+};
 
 Drone.prototype.stop = function(){
     this.setVolume(0);
     this.osc.disconnect();
     return false;
-}
-
+};
 
 function Synth(){
    this.activated =  false;
@@ -273,26 +208,26 @@ function Synth(){
    this.droneRoot = randArray([146.83, 196, 220.00]);
 }
 
-Synth.prototype.touchActivate= function(e){
+Synth.prototype.touchActivate = function(){
   var n = new Pluck(146.83*2);
   n.play();
   this.drones.forEach(function(d){
     d.stop();
   });
   this.drones = [];
-  this.drones[0]= new Drone(this.droneRoot/2);
-  this.drones[1]= new Drone(this.droneRoot);
+  this.drones[0] = new Drone(this.droneRoot/2);
+  this.drones[1] = new Drone(this.droneRoot);
   this.activated =  true;
-}
+};
 
-Synth.prototype.touchDeactivate= function(e){
-   this.activated =  false;
+Synth.prototype.touchDeactivate = function (e) {
+  this.activated = false;
 
   this.drones.forEach(function(d){
     d.stop();
   });
-}
+};
 
-var randArray = function(a){
+var randArray = function (a) {
   return a[Math.round(Math.random()*(a.length-1))];
-}
+};
