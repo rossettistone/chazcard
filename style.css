@@ -1,0 +1,7 @@
+.songlist {
+  width: 100%;
+}
+.song-row {
+  border-top: 1px solid gray;
+  padding: 10px 0;
+}

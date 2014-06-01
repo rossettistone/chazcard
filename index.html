@@ -6,9 +6,19 @@
   </head>
   <body ng-app="ChazCard">
     <div ng-controller="MainCtrl">
-      <div ng-repeat="note in notes">
-        <input type="button" class="noteButton" value="{{note.name}}" ng-click="playNote(note.hz)"></input>
+      <div class="pitchpipe">
+        <div ng-repeat="note in notes">
+          <input type="button" class="noteButton" value="{{note.name}}" ng-click="playNote(note.hz)"></input>
+        </div>
       </div>
+
+      <div class="songlist">
+        <div ng-repeat="song in songs" class="song-row">
+          <span>{{song.title}}</span>
+          <span>{{song.pitch}}</span>
+        </div>
+      </div>
+
     </div>
     <script src="jquery-2.1.1.min.js"></script>
     <script src="angular-1.2.16.min.js" type="text/javascript"></script>

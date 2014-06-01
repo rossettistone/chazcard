@@ -1,5 +1,4 @@
 var context;
-var $fun;
 var synth= {};
 var graphic;
 var emitter;
@@ -10,7 +9,13 @@ var webAudioExists = false;
 
 
 angular.module('ChazCard', [])
-.controller('MainCtrl', ['$scope', function ($scope) {
+.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
+
+  $scope.songs = [];
+
+  $http.get('songData.json').success(function (data) {
+    $scope.songs = data;
+  });
 
   $scope.notes = [
     {
@@ -279,13 +284,4 @@ Synth.prototype.touchDeactivate= function(e){
 
 var randArray = function(a){
   return a[Math.round(Math.random()*(a.length-1))];
-}
-
-var quantize = function(f, notes){
-  var qnote = 0;
-  notes.some(function(n){
-      qnote = n;
-      return f < n;
-  });
-  return qnote;
 }
