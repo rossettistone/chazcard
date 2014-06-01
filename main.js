@@ -19,33 +19,44 @@ angular.module('ChazCard', [])
 
   $scope.notes = [
     {
-      name: 'A4',
+      name: 'A',
       hz: 440
     },
     {
-      name: 'A#4',
+      name: 'A#',
       hz: 466.16
     },
     {
-      name: 'B4',
+      name: 'B',
       hz: 493.88
     },
     {
-      name: 'C5',
+      name: 'C',
       hz: 523.25
     },
     {
-      name: 'C#5',
+      name: 'C#',
       hz: 554.37
     },
     {
-      name: 'D5',
+      name: 'D',
       hz: 587.33
     }
   ];
 
   $scope.playNote = function (pitch) {
-    var n = new Pluck(parseFloat(pitch));
+    var n;
+    if (typeof pitch === 'number') {
+      n = new Pluck(parseFloat(pitch));
+    } else if (typeof pitch === 'string') {
+      for (var i = 0; i < $scope.notes.length; i++) {
+        var notename = $scope.notes[i].name;
+        if (notename === pitch) {
+          n = new Pluck($scope.notes[i].hz);
+          break;
+        }
+      }
+    }
     n.play();
   };
 

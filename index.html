@@ -13,7 +13,7 @@
       </div>
 
       <div class="songlist">
-        <div ng-repeat="song in songs" class="song-row">
+        <div ng-repeat="song in songs" class="song-row" ng-click="playNote(song.pitch)">
           <span>{{song.title}}</span>
           <span>{{song.pitch}}</span>
         </div>
