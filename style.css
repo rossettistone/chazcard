@@ -1,5 +1,6 @@
 .songlist {
   width: 100%;
+  max-width: 768px;
 }
 .song-row {
   border-top: 1px solid gray;
@@ -7,4 +8,7 @@
 }
 .song-row:hover {
   background-color: lightgray;
+}
+.song-row .song-pitch {
+  float: right;
 }
