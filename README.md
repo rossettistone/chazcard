@@ -1,1 +1,0 @@
-Full list of pitches handy here: http://www.phy.mtu.edu/~suits/notefreqs.html
