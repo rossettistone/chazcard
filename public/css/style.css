@@ -1,3 +1,7 @@
+.pitch-button {
+  display: inline-block;
+  margin: 10px 5px;
+}
 .songlist {
   width: 100%;
   max-width: 768px;

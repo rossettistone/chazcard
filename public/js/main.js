@@ -20,58 +20,19 @@ angular.module('ChazCard', [])
   });
 
   $scope.notes = [
-    {
-      name: 'C',
-      hz: 261.63
-    },
-    {
-      name: 'C#/Db',
-      hz: 277.18
-    },
-    {
-      name: 'D',
-      hz: 293.66
-    },
-    {
-      name: 'D#/Eb',
-      hz: 311.13
-    },
-    {
-      name: 'E',
-      hz: 329.63
-    },
-    {
-      name: 'F',
-      hz: 349.23
-    },
-    {
-      name: 'F#/Gb',
-      hz: 369.99
-    },
-    {
-      name: 'G',
-      hz: 392.00
-    },
-    {
-      name: 'G#/Ab',
-      hz: 415.30
-    },
-    {
-      name: 'A',
-      hz: 440.00
-    },
-    {
-      name: 'A#',
-      hz: 466.16
-    },
-    {
-      name: 'B',
-      hz: 493.88
-    },
-    {
-      name: 'C',
-      hz: 523.25
-    }
+    { name: 'C', notes: ['C'], hz: 261.63 },
+    { name: 'C#/Db', notes: ['C#', 'Db'], hz: 277.18 },
+    { name: 'D', notes: ['D'], hz: 293.66 },
+    { name: 'D#/Eb', notes: ['D#', 'Eb'], hz: 311.13 },
+    { name: 'E', notes: ['E'], hz: 329.63 },
+    { name: 'F', notes: ['F'], hz: 349.23 },
+    { name: 'F#/Gb', notes: ['F#', 'Gb'], hz: 369.99 },
+    { name: 'G', notes: ['G'], hz: 392.00 },
+    { name: 'G#/Ab', notes: ['G#', 'Ab'], hz: 415.30 },
+    { name: 'A', notes: ['A'], hz: 440.00 },
+    { name: 'A#/Bb', notes: ['A#', 'Bb'], hz: 466.16 },
+    { name: 'B', notes: ['B'], hz: 493.88 },
+    { name: 'C', notes: ['C'], hz: 523.25 }
   ];
 
   $scope.playNote = function (pitch) {
@@ -80,8 +41,8 @@ angular.module('ChazCard', [])
       n = new Pluck(parseFloat(pitch));
     } else if (typeof pitch === 'string') {
       for (var i = 0; i < $scope.notes.length; i++) {
-        var notename = $scope.notes[i].name;
-        if (notename === pitch) {
+        var notes = $scope.notes[i].notes;
+        if ( _(notes).contains(pitch) ) {
           n = new Pluck($scope.notes[i].hz);
           break;
         }
