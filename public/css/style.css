@@ -12,3 +12,6 @@
 .song-row .song-pitch {
   float: right;
 }
+.songs-searchbox {
+  margin: 10px 0;
+}

@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" media="screen" type="text/css" href="/css/normalize.css">
     <link rel="stylesheet" media="screen" type="text/css" href="/css/style.css">
   </head>
   <body ng-app="ChazCard">
@@ -12,7 +15,10 @@
       </div>
 
       <div class="songlist">
-        <div ng-repeat="song in songs" class="song-row" ng-click="playNote(song.pitch)">
+        <div>
+          Search: <input class="songs-searchbox" ng-model="search">
+        </div>
+        <div ng-repeat="song in songs | filter:search" class="song-row" ng-click="playNote(song.pitch)">
           <span class="song-title">{{song.title}}</span>
           <span class="song-pitch">{{song.pitch}}</span>
         </div>
@@ -21,6 +27,7 @@
     </div>
     <script src="/js/jquery-2.1.1.min.js"></script>
     <script src="/js/angular-1.2.16.min.js" type="text/javascript"></script>
+    <script src="/js/fastclick.js" type="text/javascript"></script>
     <script src="/js/main.js"></script>
   </body>
 </html>

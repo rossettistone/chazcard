@@ -6,6 +6,9 @@ var graphic;
 var emitter;
 var webAudioExists = false;
 
+$(function() {
+  FastClick.attach(document.body);
+});
 
 angular.module('ChazCard', [])
 .controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
@@ -18,8 +21,44 @@ angular.module('ChazCard', [])
 
   $scope.notes = [
     {
+      name: 'C',
+      hz: 261.63
+    },
+    {
+      name: 'C#/Db',
+      hz: 277.18
+    },
+    {
+      name: 'D',
+      hz: 293.66
+    },
+    {
+      name: 'D#/Eb',
+      hz: 311.13
+    },
+    {
+      name: 'E',
+      hz: 329.63
+    },
+    {
+      name: 'F',
+      hz: 349.23
+    },
+    {
+      name: 'F#/Gb',
+      hz: 369.99
+    },
+    {
+      name: 'G',
+      hz: 392.00
+    },
+    {
+      name: 'G#/Ab',
+      hz: 415.30
+    },
+    {
       name: 'A',
-      hz: 440
+      hz: 440.00
     },
     {
       name: 'A#',
@@ -32,14 +71,6 @@ angular.module('ChazCard', [])
     {
       name: 'C',
       hz: 523.25
-    },
-    {
-      name: 'C#',
-      hz: 554.37
-    },
-    {
-      name: 'D',
-      hz: 587.33
     }
   ];
 
