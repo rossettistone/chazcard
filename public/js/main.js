@@ -6,12 +6,10 @@ var graphic;
 var emitter;
 var webAudioExists = false;
 
-$(function() {
-  FastClick.attach(document.body);
-});
-
-angular.module('ChazCard', [])
+angular.module('ChazCard', ['hmTouchevents'])
 .controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
+
+  $scope.nowPlaying = []; // track notes now playing, if any
 
   $scope.songs = [];
 
@@ -36,20 +34,25 @@ angular.module('ChazCard', [])
   ];
 
   $scope.playNote = function (pitch) {
-    var n;
     if (typeof pitch === 'number') {
-      n = new Pluck(parseFloat(pitch));
+      $scope.nowPlaying.push( new Drone(parseFloat(pitch)) );
     } else if (typeof pitch === 'string') {
       for (var i = 0; i < $scope.notes.length; i++) {
         var notes = $scope.notes[i].notes;
         if ( _(notes).contains(pitch) ) {
-          n = new Pluck($scope.notes[i].hz);
+          $scope.nowPlaying.push( new Drone($scope.notes[i].hz) );
           break;
         }
       }
     }
-    n.play();
   };
+
+  $scope.stopNote = function () {
+    $scope.nowPlaying.forEach( function (note) {
+      note.stop();
+    });
+  }
+
 
 }]);
 
@@ -80,16 +83,12 @@ var setup = function(){
   }
 };
 
-function map_range (value, low1, high1, low2, high2) {
-    return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
-}
-
 function Pluck (f) {
   this.filter;
   this.gain;
   this.osc;
   this.played = false;
-  this.volume = map_range(f,100,1500,0.6, 0.4);//based on F range
+  this.volume = 0.5;
   this.pitch = f;
   this.buildSynth();
   this.duration = 1;
@@ -199,26 +198,6 @@ function Synth(){
    this.drones = [];
    this.droneRoot = randArray([146.83, 196, 220.00]);
 }
-
-Synth.prototype.touchActivate = function(){
-  var n = new Pluck(146.83*2);
-  n.play();
-  this.drones.forEach(function(d){
-    d.stop();
-  });
-  this.drones = [];
-  this.drones[0] = new Drone(this.droneRoot/2);
-  this.drones[1] = new Drone(this.droneRoot);
-  this.activated =  true;
-};
-
-Synth.prototype.touchDeactivate = function (e) {
-  this.activated = false;
-
-  this.drones.forEach(function(d){
-    d.stop();
-  });
-};
 
 var randArray = function (a) {
   return a[Math.round(Math.random()*(a.length-1))];
