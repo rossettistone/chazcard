@@ -10,7 +10,7 @@
     <div class="container" ng-controller="MainCtrl">
       <div class="pitchpipe">
         <div ng-repeat="note in notes" class="pitch-button">
-          <input type="button" class="noteButton" value="{{note.name}}" hm-touch="playNote(note.hz)" hm-release="stopNote();"></input>
+          <div type="button" class="noteButton" hm-touch="playNote(note.hz)" hm-release="stopNote();">{{note.name}}</div>
         </div>
       </div>
 
@@ -18,18 +18,22 @@
         <div class="songs-searchbox">
           Search: <input ng-model="search">
         </div>
-        <div ng-repeat="song in songs | filter:search" class="song-row" hm-touch="playNote(song.pitch)" hm-release="stopNote();">
+        <div ng-repeat="song in songs | filter:search" class="song-row" hm-touch="playNote(song.pitch);" hm-release="stopNote();">
           <span class="song-title">{{song.title}}</span>
           <span class="song-pitch">{{song.pitch}}</span>
         </div>
       </div>
 
     </div>
+    <!--
     <script src="/js/jquery-2.1.1.min.js"></script>
     <script src="/js/underscore.js" type="text/javascript"></script>
     <script src="/js/angular-1.2.16.min.js" type="text/javascript"></script>
     <script src="/js/hammer.js" type="text/javascript"></script>
     <script src="/js/angular-hammer.js" type="text/javascript"></script>
     <script src="/js/main.js"></script>
+    -->
+    <script src="/footer.min.js" type="text/javascript"></script>
+
   </body>
 </html>

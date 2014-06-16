@@ -1,6 +1,8 @@
 .pitch-button {
   display: inline-block;
-  margin: 10px 5px;
+  padding: 10px;
+  border: 1px solid black;
+  width: 5%;
 }
 .songlist {
   width: 100%;
@@ -8,9 +10,10 @@
 }
 .song-row {
   border-top: 1px solid gray;
-  padding: 10px 0;
+  padding: 10px;
 }
-.song-row:hover {
+/*.song-row:hover,*/
+.song-row:active {
   background-color: lightgray;
 }
 .song-row .song-pitch {
