@@ -3,19 +3,20 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" media="screen" type="text/css" href="/css/normalize.css">
-    <link rel="stylesheet" media="screen" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" media="screen" type="text/css" href="/bootstrap.css">
+    <link rel="stylesheet" media="screen" type="text/css" href="/style.css">
   </head>
   <body ng-app="ChazCard">
     <div class="container" ng-controller="MainCtrl">
-      <div class="pitchpipe">
-        <div ng-repeat="note in notes" class="pitch-button">
-          <div type="button" class="noteButton" hm-touch="playNote(note.hz)" hm-release="stopNote();">{{note.name}}</div>
+      <div class="pitchpipe row clearfix">
+        <div ng-repeat="note in notes" class="pitch-button col-xs-3 col-md-2 col-lg-1">
+          <div class="noteButton" hm-touch="playNote(note.hz)" hm-release="stopNote();">{{note.name}}</div>
         </div>
+        <div style="clear: both;"></div>
       </div>
 
-      <div class="songlist">
-        <div class="songs-searchbox">
+      <div class="songlist row">
+        <div class="songs-searchbox row">
           Search: <input ng-model="search">
         </div>
         <div ng-repeat="song in songs | filter:search" class="song-row" hm-touch="playNote(song.pitch);" hm-release="stopNote();">

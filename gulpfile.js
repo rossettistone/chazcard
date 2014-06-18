@@ -15,12 +15,8 @@ gulp.task('scripts', function() {
 })
 
 gulp.task('styles', function() {
-    gulp.src(['./src/css/*.less'])
+    gulp.src(['./src/styles/bootstrap/bootstrap.less', './src/styles/*.css'])
         .pipe(less())
-        .pipe(minifyCSS())
-        .pipe(gulp.dest('./build'))
-        .pipe(refresh(server))
-    gulp.src(['./src/css/*.css'])
         .pipe(minifyCSS())
         .pipe(gulp.dest('./build'))
         .pipe(refresh(server))
@@ -46,7 +42,7 @@ gulp.task('default', function() {
         gulp.run('scripts');
     })
 
-    gulp.watch('./src/css/**', function(event) {
+    gulp.watch('./src/styles/**', function(event) {
         gulp.run('styles');
     })
 

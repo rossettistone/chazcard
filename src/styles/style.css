@@ -1,8 +1,5 @@
 .pitch-button {
-  display: inline-block;
-  padding: 10px;
   border: 1px solid black;
-  width: 5%;
 }
 .songlist {
   width: 100%;
