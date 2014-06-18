@@ -9,12 +9,9 @@
 .pitch-button:active {
   background-color: #d3d3d3;
 }
-.songlist {
-  width: 100%;
-  max-width: 768px;
-}
 .song-row {
   padding: 10px;
+  background-color: #eee;
 }
 .song-row:active {
   background-color: #d3d3d3;

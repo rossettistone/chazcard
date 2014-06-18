@@ -19,7 +19,7 @@
         <div class="songs-searchbox row">
           Search: <input ng-model="search">
         </div>
-        <table class="table table-striped">
+        <table class="table">
           <tr ng-repeat="song in songs | filter:search" class="song-row" hm-touch="playNote(song.pitch);" hm-release="stopNote();">
             <td class="song-title">{{song.title}}</td>
             <td class="song-pitch">{{song.pitch}}</td>
